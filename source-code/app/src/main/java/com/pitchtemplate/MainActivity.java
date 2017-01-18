@@ -9,10 +9,13 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,7 +29,7 @@ public class MainActivity extends Activity {
             tv_duration, tv_website, tv_sponsors, tv_headingOrg, tv_organizers, tv_headingContactDetails;
     Button bt_locateOnMap, bt_email, bt_phone, bt_setReminder, bt_feedback, bt_query, bt_openWebsite;
     String url;
-    templateData data;
+    template data;
 
     final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
 
@@ -41,9 +44,9 @@ public class MainActivity extends Activity {
         //REPLACED BY
         data=configHandler.readConfigFile(this);
         setDataFromConfigFile();
-//        Gson tempJson = new Gson();
-//        templateData temp = new templateData("Event Name","Event Type","Event starts at 9:20 PM, on 23/04/16","www.google.com","Venue: VIT UNIVERSITY, VANDALUR - KELAMBAKKAM ROAD, CHENNAI, TN.","Its an sample event, addressing various lorem ipsum, lorem ipsim.","This is an OPEN TO ALL event","Students","2 Hrs","Organising team's name","prasang.sharma7@gmail.com","+91 8681070970","Sponsors for our event are: Amazon, MTV, RandomShit","credits");
-//        Log.d("dummy", tempJson.toJson(temp));
+        //Gson tempJson = new Gson();
+        //template temp = new template("Event Name","Event Type","9:20 PM","www.google.com","Venue: VIT UNIVERSITY, VANDALUR - KELAMBAKKAM ROAD, CHENNAI, TN.","Its an sample event, addressing various lorem ipsum, lorem ipsim.","This is an OPEN TO ALL event","Students","2 Hrs","Organising team's name","prasang.sharma7@gmail.com","+91 8681070970","Sponsors for our event are: Amazon, MTV, RandomShit","credits","23/04/16");
+        //Log.d("dummy", tempJson.toJson(temp));
 
         bt_setReminder.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -201,7 +204,7 @@ public class MainActivity extends Activity {
 
         tv_eventName.setText(data.getEventName());
         tv_eventType.setText(data.getEventType());
-        tv_dateTime.setText(data.getTimeDate());
+        tv_dateTime.setText(data.getTime()+data.getDate());
         //tv_website.setText(data.getWebsiteURL());
         tv_location.setText(data.getAddress());
         tv_description.setText(data.getDescription());

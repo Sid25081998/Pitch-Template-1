@@ -1,6 +1,8 @@
 package com.pitchtemplate;
 
 import android.content.Context;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -14,7 +16,7 @@ import java.io.InputStreamReader;
  */
 
 public class configHandler {
-    static templateData readConfigFile(Context context){
+    static template readConfigFile(Context context){
         try {
             Gson jsonSerializer = new Gson();
             InputStreamReader configStream = new InputStreamReader(context.getAssets().open("config.json"));
@@ -24,7 +26,7 @@ public class configHandler {
             while ((line = configReader.readLine()) != null) {
                 configJson.append(line);
             }
-            templateData data =jsonSerializer.fromJson(configJson.toString(), new TypeToken<templateData>() {}.getType());
+            template data =jsonSerializer.fromJson(configJson.toString(), new TypeToken<template>() {}.getType());
             return data;
         }
         catch (IOException e){
